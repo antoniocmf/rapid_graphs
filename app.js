@@ -11,6 +11,9 @@ var users = require('./routes/users');
 
 var app = express();
 
+//iniciar a var export
+var exports = module.exports = {};
+
 //conexão com o DB 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
@@ -24,10 +27,24 @@ var connection = mysql.createConnection({
 
 	connection.query('SELECT * from produto ', function(err, rows, fields) {
 	  if (err) throw err;
+	  else {
+		  //console.log('The solution is: ', rows );
+		  var jsonObj = [];
+		  for(var i in rows){
+			  item = {};
+			  item["id"] = rows[i].id_produto;
+			  item["valor"] = rows[i].valor_produto;
+			  jsonObj.push(item);
+		  }
+		  //console.log(JSON.stringify(jsonObj));
+		  var chartData2 = JSON.stringify(jsonObj);
+		  exports.chartData2;
+		  //console.log(chartData2);
+		  
+	  }
 
-	  else console.log('The solution is: ', rows );
 	});
-
+	 
 	connection.end();
 
 
