@@ -11,41 +11,14 @@ var users = require('./routes/users');
 
 var app = express();
 
-//iniciar a var export
-var exports = module.exports = {};
+//iniciar a var global
+//app.set('dados', {value: null});
 
-//conexão com o DB 
-var mysql      = require('mysql');
-var connection = mysql.createConnection({
-	  host     : 'localhost',
-	  user     : 'root',
-	  password : 'root',
-	  database : 'sistema'
-	});
 
-	connection.connect();
+var express = require('express');
 
-	connection.query('SELECT * from produto ', function(err, rows, fields) {
-	  if (err) throw err;
-	  else {
-		  //console.log('The solution is: ', rows );
-		  var jsonObj = [];
-		  for(var i in rows){
-			  item = {};
-			  item["id"] = rows[i].id_produto;
-			  item["valor"] = rows[i].valor_produto;
-			  jsonObj.push(item);
-		  }
-		  //console.log(JSON.stringify(jsonObj));
-		  var chartData2 = JSON.stringify(jsonObj);
-		  exports.chartData2;
-		  //console.log(chartData2);
-		  
-	  }
+var app = express();
 
-	});
-	 
-	connection.end();
 
 
 // view engine setup
@@ -62,6 +35,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

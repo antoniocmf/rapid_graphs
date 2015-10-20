@@ -11,8 +11,17 @@ html(lang='en')
     link(href='css/style.css', rel='stylesheet')
     script(src='../amcharts/amcharts.js', type='text/javascript')
     script(src='../amcharts/serial.js', type='text/javascript')
+    script(src='../js/jquery.min.js', type='text/javascript')
     script(src='../js/grafico.js', type='text/javascript')
     script.
+      $(function() {
+        //window.alert('teste');
+      	//console.log('Apos carregar index.html');
+      	var data = '#{chartData}';
+      	data2 = data.replace(/&quot;/g,'"')
+      	//window.alert(data2);
+      	drawChart(data2);
+      });
   body
     .container-fluid
       .row
