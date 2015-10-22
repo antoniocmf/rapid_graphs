@@ -18,9 +18,63 @@ html(lang='en')
         //window.alert('teste');
       	//console.log('Apos carregar index.html');
       	var data = '#{chartData}';
-      	data2 = data.replace(/&quot;/g,'"')
-      	//window.alert(data2);
-      	drawChart(data2);
+      	data2 = data.replace(/&quot;/g,'"');
+      	window.alert(data2);
+      	//drawChart(data2);
+      	
+      AmCharts.makeChart("chartdiv",
+      {
+      "type": "serial",
+      "categoryField": "id",
+      "startDuration": 1,
+      "theme": "default",
+      "categoryAxis": {
+      "gridPosition": "start"
+      },
+      "trendLines": [],
+      "graphs": [
+      {
+      "balloonText": "[[title]] of [[category]]:[[value]]",
+      "fillAlphas": 1,
+      "id": "AmGraph-1",
+      "title": "graph 1",
+      "type": "column",
+      "valueField": "valor"
+      },
+      {
+      "balloonText": "[[title]] of [[category]]:[[value]]",
+      "fillAlphas": 1,
+      "id": "AmGraph-2",
+      "title": "graph 2",
+      "type": "column",
+      "valueField": "column-2"
+      }
+      ],
+      "guides": [],
+      "valueAxes": [
+      {
+      "id": "ValueAxis-1",
+      "title": "Valor"
+      }
+      ],
+      "allLabels": [],
+      "balloon": {},
+      "legend": {
+      "useGraphSettings": true
+      },
+      "titles": [
+      {
+      "id": "Title-1",
+      "size": 15,
+      "text": "Valor dos Produtos"
+      }
+      ],
+      
+      "dataProvider": JSON.parse(data2)
+      }
+      );
+      	
+      	
       });
   body
     .container-fluid

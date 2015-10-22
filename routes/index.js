@@ -33,7 +33,8 @@ router.get('/', function(req, res, next) {
 			  //var chartData =  app.get('dados').value;
 			  console.log('Em index.js');
 			  
-			  res.render('index', { chartData: JSON.stringify(jsonObj) });		  
+			  res.render('index', { chartData: JSON.stringify(jsonObj) });		
+			  
 		  }
 
 		});
