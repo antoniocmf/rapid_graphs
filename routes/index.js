@@ -15,31 +15,48 @@ router.get('/', function(req, res, next) {
 		connection.connect();
 		
 		
-
-		connection.query('SELECT * from produto ', function(err, rows, fields) {
+		//select pra vendas por dia da semana 
+		connection.query('select sum(valor_total) as soma, DAYNAME(dt_venda) as dia from vendas group by DAYNAME(dt_venda) order by sum(valor_total) desc;', function(err, rows, fields) {
 		  if (err) throw err;
 		  else {
 			  //console.log('The solution is: ', rows );
 			  var jsonObj = [];
 			  for(var i in rows){
 				  item = {};
-				  item["id"] = rows[i].id_produto;
-				  item["valor"] = rows[i].valor_produto;
+				  item["valor_total"] = rows[i].soma;
+				  item["dia"] = rows[i].dia;
 				  jsonObj.push(item);
 			  }
-			  
-			  //var data = JSON.stringify(jsonObj);
-			  //app.set('dados', {value: chartData2});
-			  //var chartData =  app.get('dados').value;
-			  console.log('Em index.js');
 			  
 			  res.render('index', { chartData: JSON.stringify(jsonObj) });		
 			  
 		  }
 
 		});
-		connection.end();
+		
   
+		//select pra ver as vendas por mes 
+		connection.query('select sum(valor_total) as soma, MONTHNAME(dt_venda) as mes from vendas group by MONTHNAME(dt_venda) order by MONTH(dt_venda) asc;', function(err, rows, fields) {
+			  if (err) throw err;
+			  else {
+				  //console.log('The solution is: ', rows );
+				  var jsonObj2 = [];
+				  for(var i in rows){
+					  item = {};
+					  item["valor_total"] = rows[i].soma;
+					  item["mes"] = rows[i].mes;
+					  jsonObj2.push(item);
+				  }
+				  
+				  res.render('index', { chartData2: JSON.stringify(jsonObj2) });		
+				  
+			  }
+
+			});
+		
+		
+		
+			connection.end();[]
 });
 
 module.exports = router;
