@@ -15,16 +15,15 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
     script(src='../js/grafico.js', type='text/javascript')
     script(src='../js/table.js', type='text/javascript')
     script.
-    $(function() {
-        
-        
-	    var data = '#{chartData}';
-	    data2 = data.replace(/&quot;/g,'"');
+      $(function() {
+      var data = '#{chartData}';
+      data2 = data.replace(/&quot;/g,'"');
       	
-	    var data_graf2 = '#{chartData2} ';
-	    data_graf22 = data.replace(/&quot;/g,'"');
+      var data_graf2 = '#{chartData2} ';
+      data_graf22 = data_graf2.replace(/&quot;/g,'"');
+      console.log(data_graf22);
 	    
-	    AmCharts.makeChart("chartdiv",
+      AmCharts.makeChart("chartdiv",
       {
       "dataTableId" : "table1",
       "type": "serial",
@@ -65,55 +64,53 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "text": "Valor dos Produtos"
       }
       ],
-      
       "dataProvider": JSON.parse(data2)
+      });
+      
+      //gráfico 2
+      AmCharts.makeChart("chartdiv2",
+      {
+      "dataTableId" : "table2",
+      "type": "serial",
+      "categoryField": "mes",
+      "startDuration": 1,
+      "categoryAxis": {
+      "gridPosition": "start"
+      },
+      "trendLines": [],
+      "graphs": [
+      {
+      "balloonText": "[[title]] of [[category]]:[[value]]",
+      "bullet": "round",
+      "id": "AmGraph-2",
+      "title": "graph 2",
+      "valueField": "valor_total"
+      },
+      ],
+      "guides": [],
+      "valueAxes": [
+      {
+      "id": "ValueAxis-2",
+      "title": "Vendas"
+      }
+      ],
+      "allLabels": [],
+      "balloon": {},
+      "legend": {
+      "useGraphSettings": true
+      },
+      "titles": [
+      {
+      "id": "Title-2",
+      "size": 15,
+      "text": "Vendas por mes"
+      }
+      ],
+      "dataProvider": JSON.parse(data_graf22)
       }
       );
-	    
-
-    //gráfico 2
-		AmCharts.makeChart("chartdiv2",
-	    {
-	    "type": "serial",
-	    "categoryField": "mes",
-	    "startDuration": 1,
-	    "categoryAxis": {
-	    "gridPosition": "start"
-	    },
-	    "trendLines": [],
-	    "graphs": [
-	    {
-	    "balloonText": "[[title]] of [[category]]:[[value]]",
-	    "bullet": "round",
-	    "id": "AmGraph-1",
-	    "title": "graph 1",
-	    "valueField": "soma"
-	    },
-	    ],
-	    "guides": [],
-	    "valueAxes": [
-	    {
-	    "id": "ValueAxis-1",
-	    "title": "Axis title"
-	    }
-	    ],
-	    "allLabels": [],
-	    "balloon": {},
-	    "legend": {
-	    "useGraphSettings": true
-	    },
-	    "titles": [
-	    {
-	    "id": "Title-1",
-	    "size": 15,
-	    "text": "Chart Title"
-	    }
-	    ],
-	    "dataProvider": JSON.parse(data_graf22)
-	    }
-	    );
-    
-    });
+      
+      });
   body
     .container-fluid
       .row

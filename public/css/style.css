@@ -17,6 +17,16 @@ body {
   margin: 0 auto;
 }
 
+#chartdiv2 {
+  border: 6px solid #eee;
+  border-bottom: none;
+  
+  width: 640px; 
+  height: 400px; 
+  float:right;
+  margin: 0 auto;
+}
+
 #table1 {
   width: 40%;
 /*   max-width: 50%; */
