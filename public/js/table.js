@@ -6,7 +6,6 @@ AmCharts.addInitHandler(function(chart) {
     return;
 
   // get chart data
-  //chart.dataProvider = data2;
   var data = chart.dataProvider;
   
   // create a table

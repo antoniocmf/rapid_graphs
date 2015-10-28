@@ -21,7 +21,6 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       	
       var data_graf2 = '#{chartData2} ';
       data_graf22 = data_graf2.replace(/&quot;/g,'"');
-      console.log(data_graf22);
 	    
       AmCharts.makeChart("chartdiv",
       {
@@ -70,7 +69,6 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       //gráfico 2
       AmCharts.makeChart("chartdiv2",
       {
-      "dataTableId" : "table2",
       "type": "serial",
       "categoryField": "mes",
       "startDuration": 1,
