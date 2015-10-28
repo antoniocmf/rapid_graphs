@@ -7,20 +7,22 @@ body {
   font-size: 15px;
 }
 
+#panel-504847 {
+	background: black;
+}
+
 #chartdiv {
   border: 6px solid #eee;
   border-bottom: none;
-  
   width: 50%; 
   height: 400px; 
-  float:right;
+  float: right;
   margin: 0 auto;
 }
 
 #chartdiv2 {
   border: 6px solid #eee;
   border-bottom: none;
-  
   width: 50%; 
   height: 400px; 
   float:right;
@@ -61,6 +63,10 @@ table td.row-title {
 
 .nav {
 	margin-left : 5px;
+}
+
+.col-md-6 {
+	width: 100%;
 }
 
 #footer p{
