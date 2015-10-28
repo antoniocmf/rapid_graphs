@@ -66,32 +66,33 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "dataProvider": JSON.parse(data2)
       });
       
-      //gr√°fico 2
       AmCharts.makeChart("chartdiv2",
       {
       "dataTableId" : "table2",
       "type": "serial",
       "categoryField": "mes",
       "startDuration": 1,
+      "theme": "default",
       "categoryAxis": {
-      "title": "Mes do ano",
+      "title": "¡rea de produtos",
       "gridPosition": "start"
       },
       "trendLines": [],
       "graphs": [
       {
       "balloonText": "[[title]] of [[category]]:[[value]]",
-      "bullet": "round",
-      "id": "AmGraph-2",
-      "title": "Vendas do mes",
+      "fillAlphas": 1,
+      "id": "AmGraph-1",
+      "title": "Valor das vendas ",
+      "type": "column",
       "valueField": "valor_total"
       },
       ],
       "guides": [],
       "valueAxes": [
       {
-      "id": "ValueAxis-2",
-      "title": "Vendas"
+      "id": "ValueAxis-1",
+      "title": "Valor"
       }
       ],
       "allLabels": [],
@@ -101,15 +102,13 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       },
       "titles": [
       {
-      "id": "Title-2",
+      "id": "Title-1",
       "size": 15,
-      "text": "Vendas por mes"
+      "text": "Valor dos Produtos"
       }
       ],
       "dataProvider": JSON.parse(data_graf22)
-      }
-      );
-      
+      });
       });
   body
     .container-fluid
@@ -118,12 +117,12 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
           h3
             | Rapid Graphs - Retail Lab SMS 
           ul.nav.nav-tabs
-            li.active
-              a(href='') Vendas
+            li
+              a(href='/') Vendas
             li
               a(href='funcionario.jade') Funcion·rio
-            li
-              a(href='produto.jade') Produtos
+            li.active
+              a(href='') Produtos
             li.pull-right
               | Logout 
               
