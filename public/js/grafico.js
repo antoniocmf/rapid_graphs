@@ -52,7 +52,7 @@ var chartData;
 					"dataProvider": [
 						
 					]
-				}
+				};
 			
 			
 			

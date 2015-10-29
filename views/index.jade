@@ -15,6 +15,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
     script(src='../js/grafico.js', type='text/javascript')
     script(src='../js/table.js', type='text/javascript')
     script(src='../amcharts/themes/light.js', type='text/javascript')
+    script(src='../amcharts/pie.js', type='text/javascript')    
     script.
       $(function() {
       var data = '#{chartData}';
@@ -120,10 +121,11 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       //gráfico3 
       AmCharts.makeChart("chartdiv3",
       {
+      "dataTableId" : "table2",      
       "type": "pie",
       "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
-      "titleField": "porcentagem",
-      "valueField": "tipo_caixa",
+      "titleField": "tipo_caixa",
+      "valueField": "porcentagem",
       "theme": "light",
       "allLabels": [],
       "balloon": {},
@@ -134,7 +136,8 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "titles": [],
       "dataProvider": JSON.parse(data_graf33)
       }
-      );
+      );         
+
       
       });
   body
@@ -155,7 +158,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
             li
               a(href='gastos.jade') Gastos
             li.pull-right
-              | Logout 
+              b Logout 
               
       .row
         .col-md-6
@@ -165,8 +168,8 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
                 a(href='#panel-504847', data-toggle='tab') Vendas - Semana
               li
                 a(href='#panel-294147', data-toggle='tab') Vendas - Mês
-              li.disabled
-                a(href='#panel-304147', data-toggle='tab') Vendas - Caixas
+              li
+                a(href='#panel-804147', data-toggle='tab') Vendas - Caixas
             .tab-content
               #panel-504847.tab-pane.active
                #chartdiv
@@ -176,7 +179,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
                #chartdiv2              
                #table2
                 p
-              #panel-304147.tab-pane
+              #panel-804147.tab-pane
                #chartdiv3
                #table3
                

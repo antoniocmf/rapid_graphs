@@ -29,6 +29,14 @@ body {
   margin: 0 auto;
 }
 
+#chartdiv3 {
+  border: 6px solid #eee;
+  border-bottom: none;
+  width: 50%; 
+  height: 400px; 
+  margin: 0 auto;
+}
+
 table {
   width: 40%;
 /*   max-width: 50%; */
