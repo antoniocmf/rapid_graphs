@@ -22,6 +22,9 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       	
       var data_graf2 = '#{chartData2} ';
       data_graf22 = data_graf2.replace(/&quot;/g,'"');
+      
+      var data_graf3 = '#{chartData3} ';
+      data_graf33 = data_graf3.replace(/&quot;/g,'"');
 	    
       AmCharts.makeChart("chartdiv",
       {
@@ -42,7 +45,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "balloonText": "[[title]] of [[category]]:[[value]]",
       "fillAlphas": 1,
       "id": "AmGraph-1",
-      "title": "Valor das vendas ",
+      "title": "Vendas do dia (R$) ",
       "type": "column",
       "valueField": "valor_total"
       },
@@ -87,7 +90,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "balloonText": "[[title]] of [[category]]:[[value]]",
       "bullet": "round",
       "id": "AmGraph-2",
-      "title": "Vendas do mês",
+      "title": "Vendas do mês (R$)",
       "valueField": "valor_total"
       },
       ],
@@ -111,6 +114,25 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       }
       ],
       "dataProvider": JSON.parse(data_graf22)
+      }
+      );
+      
+      //gráfico3 
+      AmCharts.makeChart("chartdiv3",
+      {
+      "type": "pie",
+      "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+      "titleField": "porcentagem",
+      "valueField": "tipo_caixa",
+      "theme": "light",
+      "allLabels": [],
+      "balloon": {},
+      "legend": {
+      "align": "center",
+      "markerType": "circle"
+      },
+      "titles": [],
+      "dataProvider": JSON.parse(data_graf33)
       }
       );
       
@@ -142,7 +164,9 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
               li.active
                 a(href='#panel-504847', data-toggle='tab') Vendas - Semana
               li
-                a(href='#panel-294147', data-toggle='tab') Vendas - Mês 
+                a(href='#panel-294147', data-toggle='tab') Vendas - Mês
+              li.disabled
+                a(href='#panel-304147', data-toggle='tab') Vendas - Caixas
             .tab-content
               #panel-504847.tab-pane.active
                #chartdiv
@@ -152,6 +176,10 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
                #chartdiv2              
                #table2
                 p
+              #panel-304147.tab-pane
+               #chartdiv3
+               #table3
+               
     footer(style="background : #999; width :100%; height: 50px; font-family:'Verdana'; color:white; margin-top: 100px")
       p Criado por : Grupo ESPM
       p Contato : E-mail  Facebook  Telefone: xxxx-xxxx

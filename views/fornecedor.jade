@@ -28,6 +28,8 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "type": "serial",
       "categoryField": "nome",
       "startDuration": 1,
+      "columnSpacing": 10,
+      "columnWidth": 0.63,
       "theme": "default",
       "categoryAxis": {
       "title": "Nome do fornecedor",
@@ -38,11 +40,21 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "balloonText": "[[title]] of [[category]]:[[value]]",
       "fillAlphas": 1,
+      "fillColors": "#1d46cd",
+      "lineAlpha": 0,
       "id": "AmGraph-1",
-      "title": "Total das vendas por fornecedor ",
+      "title": "Total das vendas (R$) ",
       "type": "column",
       "valueField": "valor_total"
       },
+      {
+      "balloonText": "[[title]] of [[category]]:[[value]]",
+      "fillAlphas": 1,
+      "id": "AmGraph-2",
+      "title": "Unidades vendidas",
+      "type": "column",
+      "valueField": "produtos"
+      }
       ],
       "guides": [],
       "valueAxes": [
@@ -66,12 +78,15 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "dataProvider": JSON.parse(data2)
       });
       
+      //grafico 2
       AmCharts.makeChart("chartdiv2",
       {
       "dataTableId" : "table2",
       "type": "serial",
       "categoryField": "mes",
       "startDuration": 1,
+      "columnSpacing": 10,
+      "columnWidth": 0.63,
       "theme": "default",
       "categoryAxis": {
       "title": "Área de produtos",

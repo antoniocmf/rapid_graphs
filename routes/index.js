@@ -39,17 +39,29 @@ router.get('/', function(req, res, next) {
 							  item["mes"] = rows[i].mes;
 							  jsonObj2.push(item);
 						  }  
-						  res.render('index', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2) });		
+						  
+						  
+						//select pra ver as vendas por mes 
+							connection.query('select tipo_caixa as tipo_caixa , sum(valor_total)/(select sum(valor_total) from vendas) * 100 as porcentagem  from vendas group by tipo_caixa  order by porcentagem desc;', function(err, rows, fields) {
+								  if (err) throw err;
+								  else {
+									  //console.log('The solution is: ', rows );
+									  var jsonObj3 = [];
+									  for(var i in rows){
+										  item = {};
+										  item["porcentagem"] = rows[i].porcentagem;
+										  item["tipo_caixa"] = rows[i].tipo_caixa;
+										  jsonObj3.push(item);
+									  }  
+									  res.render('index', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2), chartData3: JSON.stringify(jsonObj3)  });		
+								  }
+								});
+							    connection.end();[]
 					  }
 					});
-					connection.end();[]
 					
 		  }
-
 		});
-		
-  
-	
 });
 
 //render da pagina produto
@@ -161,7 +173,7 @@ router.get('/fornecedor.jade', function(req, res, next) {
 		
 		
 		//select pra vendas por linha 
-		connection.query('select nome_fornecedor as nome, sum(qte_produto*valor_produto) as soma  from produto  inner join detalhes_venda on produto.id_produto = detalhes_venda.produto_id_produto group by nome_fornecedor order by sum(qte_produto*valor_produto) desc;', function(err, rows, fields) {
+		connection.query('select nome_fornecedor as nome, sum(qte_produto*valor_produto) as soma, sum(qte_produto) as produtos  from produto  inner join detalhes_venda on produto.id_produto = detalhes_venda.produto_id_produto group by nome_fornecedor order by sum(qte_produto*valor_produto) desc;', function(err, rows, fields) {
 		  if (err) throw err;
 		  else {
 			  var jsonObj = [];
@@ -169,6 +181,7 @@ router.get('/fornecedor.jade', function(req, res, next) {
 				  item = {};
 				  item["valor_total"] = rows[i].soma;
 				  item["nome"] = rows[i].nome;
+				  item["produtos"] = rows[i].produtos;
 				  jsonObj.push(item);
 			  }
 			  
