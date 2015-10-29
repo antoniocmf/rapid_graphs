@@ -14,7 +14,6 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
     script(src='../js/jquery.min.js', type='text/javascript')
     script(src='../js/grafico.js', type='text/javascript')
     script(src='../js/table.js', type='text/javascript')
-    script(src='../amcharts/themes/light.js', type='text/javascript')
     script.
       $(function() {
       var data = '#{chartData}';
@@ -29,9 +28,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "type": "serial",
       "categoryField": "dia",
       "startDuration": 1,
-      "columnSpacing": 10,
-      "columnWidth": 0.63,
-      "theme": "light",
+      "theme": "default",
       "categoryAxis": {
       "title": "Dia da semana",
       "gridPosition": "start"
@@ -63,39 +60,39 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "id": "Title-1",
       "size": 15,
-      "text": "Vendas da Semana"
+      "text": "Valor dos Produtos"
       }
       ],
       "dataProvider": JSON.parse(data2)
       });
       
-      //gráfico 2
       AmCharts.makeChart("chartdiv2",
       {
       "dataTableId" : "table2",
       "type": "serial",
       "categoryField": "mes",
       "startDuration": 1,
-      "theme":"light",
+      "theme": "default",
       "categoryAxis": {
-      "title": "Mês do ano",
+      "title": "Área de produtos",
       "gridPosition": "start"
       },
       "trendLines": [],
       "graphs": [
       {
       "balloonText": "[[title]] of [[category]]:[[value]]",
-      "bullet": "round",
-      "id": "AmGraph-2",
-      "title": "Vendas do mês",
+      "fillAlphas": 1,
+      "id": "AmGraph-1",
+      "title": "Valor das vendas ",
+      "type": "column",
       "valueField": "valor_total"
       },
       ],
       "guides": [],
       "valueAxes": [
       {
-      "id": "ValueAxis-2",
-      "title": "Vendas"
+      "id": "ValueAxis-1",
+      "title": "Valor"
       }
       ],
       "allLabels": [],
@@ -105,15 +102,13 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       },
       "titles": [
       {
-      "id": "Title-2",
+      "id": "Title-1",
       "size": 15,
-      "text": "Vendas por Mês"
+      "text": "Valor dos Produtos"
       }
       ],
       "dataProvider": JSON.parse(data_graf22)
-      }
-      );
-      
+      });
       });
   body
     .container-fluid
@@ -122,16 +117,16 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
           h3
             | Rapid Graphs - Retail Lab SMS 
           ul.nav.nav-tabs
-            li.active
-              a(href='') Vendas
+            li
+              a(href='/') Vendas
             li
               a(href='funcionario.jade') Funcionário
             li
               a(href='produto.jade') Produtos
             li
               a(href='fornecedor.jade') Fornecedor
-            li
-              a(href='gastos.jade') Gastos
+            li.active
+              a(href='') Gastos 
             li.pull-right
               | Logout 
               
@@ -140,9 +135,9 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
           #tabs-299474.tabbable 
             ul.nav.nav-tabs
               li.active
-                a(href='#panel-504847', data-toggle='tab') Vendas - Semana
+                a(href='#panel-504847', data-toggle='tab') Gráfico 1
               li
-                a(href='#panel-294147', data-toggle='tab') Vendas - Mês 
+                a(href='#panel-294147', data-toggle='tab') Gráfico 2
             .tab-content
               #panel-504847.tab-pane.active
                #chartdiv
