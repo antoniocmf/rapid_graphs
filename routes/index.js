@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 		
 		
 		//select pra vendas por dia da semana 
-		connection.query('select  DAYNAME(dt_venda) as dia, sum(vl_venda) as soma from tb_vendas group by DAYNAME(dt_venda) order by sum(vl_venda) asc;', function(err, rows, fields) {
+		connection.query('select  DAYNAME(dt_venda) as dia, sum(vl_venda) as soma from tb_vendas group by DAYNAME(dt_venda) order by DAYOFWEEK(dt_venda) asc;', function(err, rows, fields) {
 		  if (err) throw err;
 		  else {
 			  var jsonObj = [];
@@ -71,14 +71,14 @@ router.get('/produto.jade', function(req, res, next) {
 			  host     : 'localhost',
 			  user     : 'root',
 			  password : 'root',
-			  database : 'sistema'
+			  database : 'sistema2'
 			});
 
 			connection.connect();
 			
 			
 			//select pra vendas por linha 
-			connection.query('select linha_produto as linha, SUM(qte_produto*valor_produto) as soma from produto inner join detalhes_venda on produto.id_produto = detalhes_venda.produto_id_produto group by linha_produto order by SUM(qte_produto*valor_produto) desc;', function(err, rows, fields) {
+			connection.query('select ds_linha as linha, vl_produto*count(nm_produto) as soma, count(tb_produto_id_produto) as produtos from tb_cat_produto inner join tb_produto on(id_cat_produto = tb_cat_produto_id_cat_produto) inner join tb_vendas_id on(id_produto = tb_produto_id_produto) inner join tb_vendas on(tb_vendas_id_venda = id_venda) group by ds_linha order by soma asc;', function(err, rows, fields) {
 			  if (err) throw err;
 			  else {
 				  var jsonObj = [];
@@ -86,11 +86,12 @@ router.get('/produto.jade', function(req, res, next) {
 					  item = {};
 					  item["valor_total"] = rows[i].soma;
 					  item["dia"] = rows[i].linha;
+					  item["produtos"] = rows[i].produtos;
 					  jsonObj.push(item);
 				  }
 				  
 				//select pra ver vendas por area
-					connection.query('select area_produto as area, SUM(qte_produto*valor_produto) as soma from produto inner join detalhes_venda on produto.id_produto = detalhes_venda.produto_id_produto group by area_produto order by sum(qte_produto*valor_produto) desc;', function(err, rows, fields) {
+					connection.query('select ds_setor as area, vl_produto*count(nm_produto) as soma, count(tb_produto_id_produto) as produtos from tb_cat_produto inner join tb_produto on(id_cat_produto = tb_cat_produto_id_cat_produto) inner join tb_vendas_id on(id_produto = tb_produto_id_produto) inner join tb_vendas on(tb_vendas_id_venda = id_venda) group by ds_setor order by soma asc;', function(err, rows, fields) {
 						  if (err) throw err;
 						  else {
 							  //console.log('The solution is: ', rows );
@@ -98,15 +99,51 @@ router.get('/produto.jade', function(req, res, next) {
 							  for(var i in rows){
 								  item = {};
 								  item["valor_total"] = rows[i].soma;
-								  item["mes"] = rows[i].area;
+								  item["dia"] = rows[i].area;
+								  item["produtos"] = rows[i].produtos;
 								  jsonObj2.push(item);
 							  }  
-							  res.render('produto.jade', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2) });		
+							  
+							  
+							  //produtos mais vendidos
+								connection.query('select nm_produto as nome, vl_produto*count(nm_produto) as soma, count(tb_produto_id_produto) as produtos from tb_produto inner join tb_vendas_id on(id_produto = tb_produto_id_produto) inner join tb_vendas  on(tb_vendas_id_venda = id_venda) group by nm_produto order by soma asc limit 10; ', function(err, rows, fields) {
+									  if (err) throw err;
+									  else {
+										  //console.log('The solution is: ', rows );
+										  var jsonObj3 = [];
+										  for(var i in rows){
+											  item = {};
+											  item["valor_total"] = rows[i].soma;
+											  item["dia"] = rows[i].nome;
+											  item["produtos"] = rows[i].produtos;
+											  jsonObj3.push(item);
+										  }  
+									  
+											//produtos para vencer
+											connection.query('select nm_produto as nome, dt_validade as data_validade from tb_produto where dt_validade between date_sub(now(),INTERVAL 1 WEEK) and now() order by dt_validade asc;', function(err, rows, fields) {
+												  if (err) throw err;
+												  else {
+													  //console.log('The solution is: ', rows );
+													  var jsonObj4 = [];
+													  for(var i in rows){
+														  item = {};
+														  item["data_validade"] = rows[i].data_validade;
+														  item["nome"] = rows[i].nome;
+														  jsonObj4.push(item);
+													  }  
+													  res.render('produto.jade', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2), chartData3: JSON.stringify(jsonObj3), chartData4: JSON.stringify(jsonObj4) });		
+												  }
+												});
+												connection.end();[]									  
+									  
+									  }
+									});
 						  }
 						});
-						connection.end();[]
+						
 			  }
 			});
+			
 	});
 
 
@@ -182,14 +219,14 @@ router.get('/fornecedor.jade', function(req, res, next) {
 		  host     : 'localhost',
 		  user     : 'root',
 		  password : 'root',
-		  database : 'sistema'
+		  database : 'sistema2'
 		});
 
 		connection.connect();
 		
 		
-		//select pra vendas por linha 
-		connection.query('select nome_fornecedor as nome, sum(qte_produto*valor_produto) as soma, sum(qte_produto) as produtos  from produto  inner join detalhes_venda on produto.id_produto = detalhes_venda.produto_id_produto group by nome_fornecedor order by sum(qte_produto*valor_produto) desc;', function(err, rows, fields) {
+		//vendas por fornecedor
+		connection.query('select nm_fornecedor as nome, count(nm_fornecedor) as produtos, vl_produto*count(nm_fornecedor) as soma  from tb_fornecedor inner join tb_produto on tb_fornecedor.id_fornecedor = tb_produto.tb_fornecedor_id_fornecedor inner join tb_vendas_id on tb_produto.id_produto = tb_vendas_id.tb_produto_id_produto group by nm_fornecedor order by soma asc;', function(err, rows, fields) {
 		  if (err) throw err;
 		  else {
 			  var jsonObj = [];
@@ -200,25 +237,13 @@ router.get('/fornecedor.jade', function(req, res, next) {
 				  item["produtos"] = rows[i].produtos;
 				  jsonObj.push(item);
 			  }
-			  
-			//select pra ver vendas por area
-				connection.query('select area_produto as area, SUM(qte_produto*valor_produto) as soma from produto inner join detalhes_venda on produto.id_produto = detalhes_venda.produto_id_produto group by area_produto order by sum(qte_produto*valor_produto) desc;', function(err, rows, fields) {
-					  if (err) throw err;
-					  else {
-						  //console.log('The solution is: ', rows );
-						  var jsonObj2 = [];
-						  for(var i in rows){
-							  item = {};
-							  item["valor_total"] = rows[i].soma;
-							  item["mes"] = rows[i].area;
-							  jsonObj2.push(item);
-						  }  
-						  res.render('fornecedor.jade', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2) });		
-					  }
-					});
-					connection.end();[]
+			  res.render('fornecedor.jade', { chartData: JSON.stringify(jsonObj)});		
 		  }
+			
 		});
+		
+		connection.end();[]
+	
 });
 
 //render da pagina de gastos 

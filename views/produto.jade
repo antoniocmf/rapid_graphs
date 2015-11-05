@@ -22,18 +22,25 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       	
       var data_graf2 = '#{chartData2} ';
       data_graf22 = data_graf2.replace(/&quot;/g,'"');
+      
+      var data_graf3 = '#{chartData3} ';
+      data_graf33 = data_graf3.replace(/&quot;/g,'"');
 	    
+      var data_graf4 = '#{chartData4} ';
+      data_graf44 = data_graf4.replace(/&quot;/g,'"');  
+      
+      
       AmCharts.makeChart("chartdiv",
       {
       "dataTableId" : "table1",
       "type": "serial",
       "categoryField": "dia",
+      "startDuration": 1,
       "columnSpacing": 10,
       "columnWidth": 0.63,
-      "startDuration": 1,
       "theme": "default",
       "categoryAxis": {
-      "title": "Dia da semana",
+      "title": "Linha de produto",
       "gridPosition": "start"
       },
       "trendLines": [],
@@ -41,13 +48,21 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "balloonText": "[[title]] of [[category]]:[[value]]",
       "fillAlphas": 1,
-      "fillColors": "#7722b9",
+      "fillColors": "#23dab5",
       "lineAlpha": 0,
       "id": "AmGraph-1",
-      "title": "Valor das vendas (R$) ",
+      "title": "Total das vendas (R$) ",
       "type": "column",
       "valueField": "valor_total"
       },
+      {
+      "balloonText": "[[title]] of [[category]]:[[value]]",
+      "fillAlphas": 1,
+      "id": "AmGraph-2",
+      "title": "Unidades vendidas",
+      "type": "column",
+      "valueField": "produtos"
+      }
       ],
       "guides": [],
       "valueAxes": [
@@ -65,7 +80,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "id": "Title-1",
       "size": 15,
-      "text": "Vendas por Linha de Produto"
+      "text": "Vendas por Linha de produto"
       }
       ],
       "dataProvider": JSON.parse(data2)
@@ -76,13 +91,13 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "dataTableId" : "table2",
       "type": "serial",
-      "categoryField": "mes",
+      "categoryField": "dia",
       "startDuration": 1,
       "columnSpacing": 10,
-      "columnWidth": 0.5,
+      "columnWidth": 0.63,
       "theme": "default",
       "categoryAxis": {
-      "title": "Área de Produtos",
+      "title": "Linha de produto",
       "gridPosition": "start"
       },
       "trendLines": [],
@@ -90,13 +105,21 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "balloonText": "[[title]] of [[category]]:[[value]]",
       "fillAlphas": 1,
-      "fillColors": "#7722b9",
+      "fillColors": "#23dab5",
       "lineAlpha": 0,
-      "id": "AmGraph-1",
-      "title": "Valor das vendas (R$)",
+      "id": "AmGraph-3",
+      "title": "Total das vendas (R$) ",
       "type": "column",
       "valueField": "valor_total"
       },
+      {
+      "balloonText": "[[title]] of [[category]]:[[value]]",
+      "fillAlphas": 1,
+      "id": "AmGraph-4",
+      "title": "Unidades vendidas",
+      "type": "column",
+      "valueField": "produtos"
+      }
       ],
       "guides": [],
       "valueAxes": [
@@ -114,12 +137,118 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "id": "Title-1",
       "size": 15,
-      "text": "Vendas por Área de Produtos"
+      "text": "Vendas por Linha de produto"
       }
       ],
       "dataProvider": JSON.parse(data_graf22)
       });
+      
+      //grafico 3
+      
+      AmCharts.makeChart("chartdiv4",
+      {
+      "dataTableId" : "table4",
+      "type": "serial",
+      "categoryField": "dia",
+      "startDuration": 1,
+      "columnSpacing": 10,
+      "columnWidth": 0.63,
+      "theme": "default",
+      "categoryAxis": {
+      "labelRotation": 45,
+      "fontSize": 9,
+      "title": "Nome do Produto",
+      "gridPosition": "start"
+      },
+      "trendLines": [],
+      "graphs": [
+      {
+      "balloonText": "[[title]] of [[category]]:[[value]]",
+      "fillAlphas": 1,
+      "fillColors": "#23dab5",
+      "lineAlpha": 0,
+      "id": "AmGraph-1",
+      "title": "Total das vendas (R$) ",
+      "type": "column",
+      "valueField": "valor_total"
+      },
+      {
+      "balloonText": "[[title]] of [[category]]:[[value]]",
+      "fillAlphas": 1,
+      "id": "AmGraph-2",
+      "title": "Unidades vendidas",
+      "type": "column",
+      "valueField": "produtos"
+      }
+      ],
+      "guides": [],
+      "valueAxes": [
+      {
+      "id": "ValueAxis-1",
+      "title": "Valor"
+      }
+      ],
+      "allLabels": [],
+      "balloon": {},
+      "legend": {
+      "useGraphSettings": true,
+      },
+      "titles": [
+      {
+      "id": "Title-1",
+      "size": 15,
+      "text": "Vendas por Produto"
+      }
+      ],
+      "dataProvider": JSON.parse(data_graf33)
       });
+      
+      
+      AmCharts.makeChart("chartdiv5",
+      {
+      "type": "serial",
+      "categoryField": "data_validade",
+      "dataDateFormat": "YYYY-MM-DD",
+      "categoryAxis": {
+      "parseDates": true,
+      },
+      "chartCursor": {},
+      "chartScrollbar": {},
+      "trendLines": [],
+      "graphs": [
+      {
+      "bullet": "round",
+      "id": "AmGraph-1",
+      "title": "graph 1",
+      "valueField": "nome"
+      },
+      ],
+      "guides": [],
+      "valueAxes": [
+      {
+      "id": "ValueAxis-1",
+      "title": "Axis title"
+      }
+      ],
+      "allLabels": [],
+      "balloon": {},
+      "legend": {
+      "useGraphSettings": true
+      },
+      "titles": [
+      {
+      "id": "Title-1",
+      "size": 15,
+      "text": "Chart Title"
+      }
+      ],
+      "dataProvider": JSON.parse(data_graf44)
+      }
+      );
+      
+      
+      });
+      
   body
     .container-fluid
       .row
