@@ -14,6 +14,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
     script(src='../js/jquery.min.js', type='text/javascript')
     script(src='../js/grafico.js', type='text/javascript')
     script(src='../js/table.js', type='text/javascript')
+    script(src='../amcharts/pie.js', type='text/javascript')    
     script.
       $(function() {
       var data = '#{chartData}';
@@ -22,49 +23,25 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       var data_graf2 = '#{chartData2} ';
       data_graf22 = data_graf2.replace(/&quot;/g,'"');
 	    
-      AmCharts.makeChart("chartdiv",
+      AmCharts.makeChart("chartdiv3",
       {
-      "dataTableId" : "table1",
-      "type": "serial",
-      "categoryField": "dia",
-      "startDuration": 1,
-      "theme": "default",
-      "categoryAxis": {
-      "title": "Dia da semana",
-      "gridPosition": "start"
-      },
-      "trendLines": [],
-      "graphs": [
-      {
-      "balloonText": "[[title]] of [[category]]:[[value]]",
-      "fillAlphas": 1,
-      "id": "AmGraph-1",
-      "title": "Valor das vendas ",
-      "type": "column",
-      "valueField": "valor_total"
-      },
-      ],
-      "guides": [],
-      "valueAxes": [
-      {
-      "id": "ValueAxis-1",
-      "title": "Valor"
-      }
-      ],
+      "type": "pie",
+      "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+      "colors": ["#bd2727","#EBDF3B", "#1d46cd"],
+      "titleField": "gasto",
+      "valueField": "porcentagem",
+      "theme": "light",
       "allLabels": [],
       "balloon": {},
       "legend": {
-      "useGraphSettings": true
+      "align": "center",
+      "markerType": "circle"
       },
-      "titles": [
-      {
-      "id": "Title-1",
-      "size": 15,
-      "text": "Valor dos Produtos"
-      }
-      ],
+      "titles": [],
       "dataProvider": JSON.parse(data2)
-      });
+      }
+      );         
+
       
       AmCharts.makeChart("chartdiv2",
       {
@@ -74,7 +51,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "startDuration": 1,
       "theme": "default",
       "categoryAxis": {
-      "title": "Área de produtos",
+      "title": "Ã�rea de produtos",
       "gridPosition": "start"
       },
       "trendLines": [],
@@ -120,7 +97,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
             li
               a(href='/') Vendas
             li
-              a(href='funcionario.jade') Funcionário
+              a(href='funcionario.jade') FuncionÃ¡rio
             li
               a(href='produto.jade') Produtos
             li
@@ -135,13 +112,12 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
           #tabs-299474.tabbable 
             ul.nav.nav-tabs
               li.active
-                a(href='#panel-504847', data-toggle='tab') Gráfico 1
+                a(href='#panel-504847', data-toggle='tab') Gastos Gerais
               li
-                a(href='#panel-294147', data-toggle='tab') Gráfico 2
+                a(href='#panel-294147', data-toggle='tab') GrÃ¡fico 2
             .tab-content
               #panel-504847.tab-pane.active
-               #chartdiv
-               #table1
+               #chartdiv3
                 p
               #panel-294147.tab-pane
                #chartdiv2              

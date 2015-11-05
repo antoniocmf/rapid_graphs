@@ -219,14 +219,14 @@ router.get('/gastos.jade', function(req, res, next) {
 		
 		
 		//select pra vendas por linha 
-		connection.query('select linha_produto as linha, SUM(qte_produto*valor_produto) as soma from produto inner join detalhes_venda on produto.id_produto = detalhes_venda.produto_id_produto group by linha_produto order by SUM(qte_produto*valor_produto) asc;', function(err, rows, fields) {
+		connection.query('select sum(valor_gasto)/(select sum(valor_gasto) from gastos_mensais) * 100 as porcentagem, ds_gasto from gastos_mensais group by ds_gasto;', function(err, rows, fields) {
 		  if (err) throw err;
 		  else {
 			  var jsonObj = [];
 			  for(var i in rows){
 				  item = {};
-				  item["valor_total"] = rows[i].soma;
-				  item["dia"] = rows[i].linha;
+				  item["porcentagem"] = rows[i].porcentagem;
+				  item["gasto"] = rows[i].ds_gasto;
 				  jsonObj.push(item);
 			  }
 			  
