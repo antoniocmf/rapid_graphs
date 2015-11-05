@@ -28,6 +28,24 @@ body {
   margin: 0 auto;
 }
 
+#chartdiv4 {
+  border: 6px solid #eee;
+  border-bottom: none;
+  width: 50%; 
+  height: 400px; 
+  float:right;
+  margin: 0 auto;
+}
+
+#chartdiv5 {
+  border: 6px solid #eee;
+  border-bottom: none;
+  width: 50%; 
+  height: 400px; 
+  float:right;
+  margin: 0 auto;
+}
+
 #chartdiv3 {
   border: 6px solid #eee;
   border-bottom: none;

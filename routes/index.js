@@ -9,14 +9,14 @@ router.get('/', function(req, res, next) {
 		  host     : 'localhost',
 		  user     : 'root',
 		  password : 'root',
-		  database : 'sistema'
+		  database : 'sistema2'
 		});
 
 		connection.connect();
 		
 		
 		//select pra vendas por dia da semana 
-		connection.query('select sum(valor_total) as soma, DAYNAME(dt_venda) as dia from vendas group by DAYNAME(dt_venda) order by sum(valor_total) desc;', function(err, rows, fields) {
+		connection.query('select  DAYNAME(dt_venda) as dia, sum(vl_venda) as soma from tb_vendas group by DAYNAME(dt_venda) order by sum(vl_venda) asc;', function(err, rows, fields) {
 		  if (err) throw err;
 		  else {
 			  var jsonObj = [];
@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 			  }
 			  
 			//select pra ver as vendas por mes 
-				connection.query('select sum(valor_total) as soma, MONTHNAME(dt_venda) as mes from vendas group by MONTHNAME(dt_venda) order by MONTH(dt_venda) asc;', function(err, rows, fields) {
+				connection.query('select sum(vl_venda) as soma, MONTHNAME(dt_venda) as mes from tb_vendas group by MONTHNAME(dt_venda) order by MONTH(dt_venda) asc;', function(err, rows, fields) {
 					  if (err) throw err;
 					  else {
 						  //console.log('The solution is: ', rows );
@@ -41,8 +41,8 @@ router.get('/', function(req, res, next) {
 						  }  
 						  
 						  
-						//select pra ver as vendas por mes 
-							connection.query('select tipo_caixa as tipo_caixa , sum(valor_total)/(select sum(valor_total) from vendas) * 100 as porcentagem  from vendas group by tipo_caixa  order by porcentagem desc;', function(err, rows, fields) {
+						//select vendas por tipo de caixa
+							connection.query('select ds_tipo_caixa, sum(vl_venda) as porcentagem  from tb_vendas group by ds_tipo_caixa order by porcentagem asc;', function(err, rows, fields) {
 								  if (err) throw err;
 								  else {
 									  //console.log('The solution is: ', rows );
@@ -50,7 +50,7 @@ router.get('/', function(req, res, next) {
 									  for(var i in rows){
 										  item = {};
 										  item["porcentagem"] = rows[i].porcentagem;
-										  item["tipo_caixa"] = rows[i].tipo_caixa;
+										  item["tipo_caixa"] = rows[i].ds_tipo_caixa;
 										  jsonObj3.push(item);
 									  }  
 									  res.render('index', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2), chartData3: JSON.stringify(jsonObj3)  });		
@@ -105,12 +105,10 @@ router.get('/produto.jade', function(req, res, next) {
 						  }
 						});
 						connection.end();[]
-						
 			  }
-
 			});
-			
-});
+	});
+
 
 //render da pagina funcionario
 router.get('/funcionario.jade', function(req, res, next) {
@@ -119,26 +117,26 @@ router.get('/funcionario.jade', function(req, res, next) {
 		  host     : 'localhost',
 		  user     : 'root',
 		  password : 'root',
-		  database : 'sistema'
+		  database : 'sistema2'
 		});
 
 		connection.connect();
 		
 		
-		//select pra vendas por linha 
-		connection.query('select linha_produto as linha, SUM(qte_produto*valor_produto) as soma from produto inner join detalhes_venda on produto.id_produto = detalhes_venda.produto_id_produto group by linha_produto order by SUM(qte_produto*valor_produto) asc;', function(err, rows, fields) {
+		//funcionario caixa normal
+		connection.query('SELECT tb_funcionario_id_funcionario as funcionario, vl_venda as soma FROM tb_vendas WHERE ds_tipo_caixa = "normal" group by funcionario order by soma asc;', function(err, rows, fields) {
 		  if (err) throw err;
 		  else {
 			  var jsonObj = [];
 			  for(var i in rows){
 				  item = {};
 				  item["valor_total"] = rows[i].soma;
-				  item["dia"] = rows[i].linha;
+				  item["dia"] = rows[i].funcionario;
 				  jsonObj.push(item);
 			  }
 			  
-			//select pra ver vendas por area
-				connection.query('select area_produto as area, SUM(qte_produto*valor_produto) as soma from produto inner join detalhes_venda on produto.id_produto = detalhes_venda.produto_id_produto group by area_produto order by sum(qte_produto*valor_produto) asc;', function(err, rows, fields) {
+			//funcionario caixa rapido
+				connection.query('SELECT tb_funcionario_id_funcionario as funcionario, vl_venda as soma FROM tb_vendas WHERE ds_tipo_caixa = "rapido" group by funcionario order by soma asc;', function(err, rows, fields) {
 					  if (err) throw err;
 					  else {
 						  //console.log('The solution is: ', rows );
@@ -146,16 +144,34 @@ router.get('/funcionario.jade', function(req, res, next) {
 						  for(var i in rows){
 							  item = {};
 							  item["valor_total"] = rows[i].soma;
-							  item["mes"] = rows[i].area;
+							  item["mes"] = rows[i].funcionario;
 							  jsonObj2.push(item);
-						  }  
-						  res.render('funcionario.jade', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2) });		
+						  }
+						  
+						  
+						  //media de vendas por funcionario
+							connection.query('select AVG (vl_venda) as soma, tb_funcionario_id_funcionario as funcionario from tb_vendas group by tb_funcionario_id_funcionario order by soma desc;', function(err, rows, fields) {
+								  if (err) throw err;
+								  else {
+									  //console.log('The solution is: ', rows );
+									  var jsonObj3 = [];
+									  for(var i in rows){
+										  item = {};
+										  item["media"] = rows[i].soma;
+										  item["funcionario"] = rows[i].funcionario;
+										  jsonObj3.push(item);
+									  }  
+									  res.render('funcionario.jade', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2), chartData3: JSON.stringify(jsonObj3)  });		
+								  }
+								});
+							    connection.end();[]
 					  }
 					});
-					connection.end();[]
+					
 		  }
 		});
 });
+
 
 
 
@@ -212,26 +228,26 @@ router.get('/gastos.jade', function(req, res, next) {
 		  host     : 'localhost',
 		  user     : 'root',
 		  password : 'root',
-		  database : 'sistema'
+		  database : 'sistema2'
 		});
 
 		connection.connect();
 		
 		
-		//select pra vendas por linha 
-		connection.query('select sum(valor_gasto)/(select sum(valor_gasto) from gastos_mensais) * 100 as porcentagem, ds_gasto from gastos_mensais group by ds_gasto;', function(err, rows, fields) {
+		//select gastos por tipo
+		connection.query('select (sum(vl_conta)) as porcentagem, ds_tipo_conta as tipo_de_conta from tb_contas_cont group by tipo_de_conta;', function(err, rows, fields) {
 		  if (err) throw err;
 		  else {
 			  var jsonObj = [];
 			  for(var i in rows){
 				  item = {};
 				  item["porcentagem"] = rows[i].porcentagem;
-				  item["gasto"] = rows[i].ds_gasto;
+				  item["gasto"] = rows[i].tipo_de_conta;
 				  jsonObj.push(item);
 			  }
 			  
-			//select pra ver vendas por area
-				connection.query('select area_produto as area, SUM(qte_produto*valor_produto) as soma from produto inner join detalhes_venda on produto.id_produto = detalhes_venda.produto_id_produto group by area_produto order by sum(qte_produto*valor_produto) asc;', function(err, rows, fields) {
+			//evolucao dos gastos
+				connection.query('select sum(vl_conta) as soma, MONTHNAME(dt_conta) as mes from tb_contas_cont group by month(dt_conta) asc;', function(err, rows, fields) {
 					  if (err) throw err;
 					  else {
 						  //console.log('The solution is: ', rows );
@@ -239,7 +255,7 @@ router.get('/gastos.jade', function(req, res, next) {
 						  for(var i in rows){
 							  item = {};
 							  item["valor_total"] = rows[i].soma;
-							  item["mes"] = rows[i].area;
+							  item["mes"] = rows[i].mes;
 							  jsonObj2.push(item);
 						  }  
 						  res.render('gastos.jade', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2) });		

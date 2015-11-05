@@ -27,7 +27,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "type": "pie",
       "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
-      "colors": ["#bd2727","#EBDF3B", "#1d46cd"],
+      "colors": ["#E83146","#F7DA1E", "#1d46cd"],
       "titleField": "gasto",
       "valueField": "porcentagem",
       "theme": "light",
@@ -43,33 +43,36 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       );         
 
       
+      //gráfico 2
       AmCharts.makeChart("chartdiv2",
       {
       "dataTableId" : "table2",
       "type": "serial",
       "categoryField": "mes",
+      "colors": ["#E83146","#F7DA1E", "#1d46cd"],
       "startDuration": 1,
-      "theme": "default",
+      "theme":"light",
       "categoryAxis": {
-      "title": "Ã�rea de produtos",
+      "title": "Mês do ano",
       "gridPosition": "start"
       },
       "trendLines": [],
       "graphs": [
       {
       "balloonText": "[[title]] of [[category]]:[[value]]",
-      "fillAlphas": 1,
-      "id": "AmGraph-1",
-      "title": "Valor das vendas ",
-      "type": "column",
+      "bullet": "round",
+      "id": "AmGraph-2",
+      "fillColors": "#E83146",
+      "lineAlpha": 10,
+      "title": "Gastos do Mês (R$)",
       "valueField": "valor_total"
       },
       ],
       "guides": [],
       "valueAxes": [
       {
-      "id": "ValueAxis-1",
-      "title": "Valor"
+      "id": "ValueAxis-2",
+      "title": "Vendas"
       }
       ],
       "allLabels": [],
@@ -79,13 +82,16 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       },
       "titles": [
       {
-      "id": "Title-1",
+      "id": "Title-2",
       "size": 15,
-      "text": "Valor dos Produtos"
+      "text": "Gastos por Mês"
       }
       ],
       "dataProvider": JSON.parse(data_graf22)
-      });
+      }
+      );
+      
+      
       });
   body
     .container-fluid
@@ -114,7 +120,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
               li.active
                 a(href='#panel-504847', data-toggle='tab') Gastos Gerais
               li
-                a(href='#panel-294147', data-toggle='tab') GrÃ¡fico 2
+                a(href='#panel-294147', data-toggle='tab') Evolucao dos Gastos
             .tab-content
               #panel-504847.tab-pane.active
                #chartdiv3
