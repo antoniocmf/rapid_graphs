@@ -30,6 +30,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "colors": ["#E83146","#F7DA1E", "#1d46cd"],
       "titleField": "gasto",
       "valueField": "porcentagem",
+      "creditsPosition": "top-right",
       "theme": "light",
       "allLabels": [],
       "balloon": {},
@@ -51,6 +52,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "categoryField": "mes",
       "colors": ["#E83146","#F7DA1E", "#1d46cd"],
       "startDuration": 1,
+      "creditsPosition": "top-right",
       "theme":"light",
       "categoryAxis": {
       "title": "Mês do ano",
@@ -103,7 +105,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
             li
               a(href='/') Vendas
             li
-              a(href='funcionario.jade') FuncionÃ¡rio
+              a(href='funcionario.jade') Funcionário
             li
               a(href='produto.jade') Produtos
             li
@@ -120,7 +122,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
               li.active
                 a(href='#panel-504847', data-toggle='tab') Gastos Gerais
               li
-                a(href='#panel-294147', data-toggle='tab') Evolucao dos Gastos
+                a(href='#panel-294147', data-toggle='tab') Evolução dos Gastos
             .tab-content
               #panel-504847.tab-pane.active
                #chartdiv3
@@ -129,9 +131,9 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
                #chartdiv2              
                #table2
                 p
-    footer(style="background : #999; width :100%; height: 50px; font-family:'Verdana'; color:white; margin-top: 100px")
-      p Criado por : Grupo ESPM
-      p Contato : E-mail  Facebook  Telefone: xxxx-xxxx
+    footer
+      p Criado por : Antonio Mendonça | Diego Couto | Jacqueline Santos | Isabela Taccolini
+      p Contato : rapidgraphs@gmail.com  www.rapidgraphs.com   (11)5555-4444
     script(src='js/jquery.min.js')
     script(src='js/bootstrap.min.js')
     script(src='js/scripts.js')

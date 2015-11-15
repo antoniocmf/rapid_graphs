@@ -35,9 +35,10 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "columnSpacing": 10,
       "columnWidth": 0.63,
       "startDuration": 1,
+      "creditsPosition": "top-right",
       "theme": "default",
       "categoryAxis": {
-      "title": "Id do Funcionario",
+      "title": "Id do Funcionário",
       "gridPosition": "start"
       },
       "trendLines": [],
@@ -69,7 +70,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "id": "Title-1",
       "size": 15,
-      "text": "Vendas Caixa Normal por Funcionario"
+      "text": "Vendas Caixa Normal por Funcionário"
       }
       ],
       "dataProvider": JSON.parse(data2)
@@ -82,9 +83,10 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       "type": "serial",
       "categoryField": "mes",
       "startDuration": 1,
+      "creditsPosition": "top-right",
       "theme": "default",
       "categoryAxis": {
-      "title": "Id do Funcionario",
+      "title": "Id do Funcionário",
       "gridPosition": "start"
       },
       "trendLines": [],
@@ -116,7 +118,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "id": "Title-1",
       "size": 15,
-      "text": "Vendas Caixa Rapido por Funcionario"
+      "text": "Vendas Caixa Rápido por Funcionário"
       }
       ],
       "dataProvider": JSON.parse(data_graf22)
@@ -128,13 +130,14 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "dataTableId" : "table4",
       "theme": "light",
+      "creditsPosition": "top-right",
       "type": "funnel",
       "categoryAxis": {
-      "title": "Id do Funcionario",
+      "title": "Id do Funcionário",
       "gridPosition": "start"
       },
       "balloonText": "[[title]]:R$[[value]]",
-      "title": "Media das vendas (R$)",
+      "title": "Média das vendas (R$)",
       "labelPosition": "right",
       "rotate": true,
       "marginLeft": 15,
@@ -149,7 +152,7 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
       {
       "id": "Title-1",
       "size": 15,
-      "text": "Media de Vendas por Funcionario"
+      "text": "Média de Vendas por Funcionário"
       }
       ],
       "dataProvider": JSON.parse(data_graf33)
@@ -185,9 +188,9 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
               li.active
                 a(href='#panel-504847', data-toggle='tab') Caixa Normal
               li
-                a(href='#panel-294147', data-toggle='tab') Caixa Rapido
+                a(href='#panel-294147', data-toggle='tab') Caixa Rápido
               li
-                a(href='#panel-804147', data-toggle='tab') Media de Vendas
+                a(href='#panel-804147', data-toggle='tab') Média de Vendas
             .tab-content
               #panel-504847.tab-pane.active
                #chartdiv
@@ -199,9 +202,9 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
                 p
               #panel-804147.tab-pane
                #chartdiv3
-    footer(style="background : #999; width :100%; height: 50px; font-family:'Verdana'; color:white; margin-top: 100px")
-      p Criado por : Grupo ESPM
-      p Contato : E-mail  Facebook  Telefone: xxxx-xxxx
+    footer
+      p Criado por : Antonio Mendonça | Diego Couto | Jacqueline Santos | Isabela Taccolini
+      p Contato : rapidgraphs@gmail.com  www.rapidgraphs.com   (11)5555-4444
     script(src='js/jquery.min.js')
     script(src='js/bootstrap.min.js')
     script(src='js/scripts.js')
