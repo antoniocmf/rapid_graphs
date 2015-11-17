@@ -1,0 +1,36 @@
+doctype html
+html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
+  head
+    link(href='css/style2.css', rel='stylesheet')
+    script(src='../js/jquery.min.js', type='text/javascript')
+    script.
+      document.getElementById("#login-button").onclick = function () {
+      location.href = "localhost:3001/";
+      };  
+    
+    script.
+      $("#login-button").click(function(event) {
+          event.preventDefault();
+
+          $('form').fadeOut(500);
+          $('.wrapper').addClass('form-success');
+      });
+  body
+    .wrapper
+      .container
+        h1 Bem-vindo
+        form.form
+          input(type='text', placeholder='Usuário')
+          input(type='password', placeholder='Senha')
+          button#login-button(type='submit') Login
+      ul.bg-bubbles
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li
+        li

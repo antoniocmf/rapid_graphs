@@ -130,8 +130,10 @@ router.get('/produto.jade', function(req, res, next) {
 														  item["data_validade"] = rows[i].data_validade;
 														  item["nome"] = rows[i].nome;
 														  jsonObj4.push(item);
-													  }  
-													  res.render('produto.jade', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2), chartData3: JSON.stringify(jsonObj3), chartData4: JSON.stringify(jsonObj4) });		
+													  }
+		
+													  res.render('produto.jade', { chartData: JSON.stringify(jsonObj) , chartData2: JSON.stringify(jsonObj2), chartData3: JSON.stringify(jsonObj3), chartData4: jsonObj4 });
+													  
 												  }
 												});
 												connection.end();[]									  
@@ -290,6 +292,12 @@ router.get('/gastos.jade', function(req, res, next) {
 		  }
 		});
 });
+
+
+//pagina de login
+router.get('/login.jade', function(req, res, next) {
+	  res.render('login.jade', { title: 'Express' });
+	});
 
 
 module.exports = router;
