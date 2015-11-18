@@ -2,19 +2,8 @@ doctype html
 html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
   head
     link(href='css/style2.css', rel='stylesheet')
-    script(src='../js/jquery.min.js', type='text/javascript')
-    script.
-      document.getElementById("#login-button").onclick = function () {
-      location.href = "localhost:3001/";
-      };  
+    script(src='../js/jquery.min.js', type='text/javascript')  
     
-    script.
-      $("#login-button").click(function(event) {
-          event.preventDefault();
-
-          $('form').fadeOut(500);
-          $('.wrapper').addClass('form-success');
-      });
   body
     .wrapper
       .container
@@ -34,3 +23,14 @@ html(xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br")
         li
         li
         li
+        
+    script.
+      $("#login-button").click(function(event) {
+          event.preventDefault();
+
+          $('form').fadeOut(30);
+          $('.wrapper').addClass('form-success');
+
+          var url = '/';
+          location.replace(url);
+      });    

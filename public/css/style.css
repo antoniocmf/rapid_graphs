@@ -125,7 +125,9 @@ footer p {
 	margin-left : 15px;
 }
 
-table tabela1 {
-	align : center;
+#tabelaData {
 	margin: 0 auto;
+    margin-left: 350px;
+    margin-top: 30px;
+	
 }
