@@ -120,7 +120,7 @@ router.get('/produto.jade', function(req, res, next) {
 										  }  
 									  
 											//produtos para vencer
-											connection.query('select nm_produto as nome, dt_validade as data_validade from tb_produto where dt_validade between date_sub(now(),INTERVAL 1 WEEK) and now() order by dt_validade asc;', function(err, rows, fields) {
+											connection.query('select nm_produto as nome, dt_validade as data_validade from tb_produto where dt_validade between sysdate() and date_add(sysdate(), INTERVAL 4 WEEK) order by dt_validade asc;', function(err, rows, fields) {
 												  if (err) throw err;
 												  else {
 													  //console.log('The solution is: ', rows );
